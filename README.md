@@ -37,9 +37,8 @@ when you have train dataset and test dataset separately, you can use data_direct
 
 # predict by our method model which is already trained
 if you want to predict your data by our trained model, you can use predict.py
-'''
-python predict.py -cancer_name BRCA -test_data_directory sample_data/TCGA_BRCA_input.csv -result_folder_name result_1
-'''
+### example 
+    python predict.py -cancer_name BRCA -test_data_directory sample_data/TCGA_BRCA_input.csv -result_folder_name result_1
 
 ## argument
 ### 1.cancer_name
