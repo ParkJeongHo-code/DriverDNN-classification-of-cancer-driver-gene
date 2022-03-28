@@ -11,10 +11,10 @@ ex) BRCA, PAAD...
 2.data_directory 
 when you have one dataset and you want to seperate the dataset by train and test,don't use test_data_directory argument, and use only data_directory argument. 
 we divide train,test dataset by 3 fold stratified cross validation. So we make three dataset. by using 3 fold stratified cross validation, you can get three model in one raw dataset.
-"""
+'''
 python training_our_method.py -cancer_name BRCA -data_directory sample_data/TCGA_BRCA_input.csv -lr 0.001 -epoch 10 -batch 64 -early_stop 5 -result_folder_name result 
-"""
-3.lr
+'''
+3.lr\n
 lr is meaning learning rate of model training.
 4.epoch
 epoch is meaning epoch of model training.
@@ -31,10 +31,10 @@ python training_our_method.py -cancer_name BRCA -data_directory sample_data/TCGA
 """
 # predict by our method model which is already trained
 if you want to predict your data by our trained model, you can use predict.py
-"""
+'''
 python predict.py -cancer_name BRCA -test_data_directory sample_data/TCGA_BRCA_input.csv -result_folder_name result_1
+'''
 
-"""
 ## argument
 1.cancer_name
 cancer_name argument is meaning TCGA cancer name.
