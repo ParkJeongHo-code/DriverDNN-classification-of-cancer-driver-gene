@@ -31,7 +31,7 @@ def preditc_data(inputs):
     else:
         sep_=','
     test_data=pd.read_csv(inputs['data_dir'],sep=sep_)
-    test_gene_list=test_data.loc[:,'Unnamed: 0.1']
+    test_gene_list=test_data.loc[:,'gene_name']
     test_labels=[]
     for test_gene in list(test_gene_list):
         if test_gene in driver_gene_list:
