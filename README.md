@@ -33,12 +33,12 @@ result_folder_name argument is name of folder that save result and model.
 ### 8.test_data_directory
 when you have train dataset and test dataset separately, you can use data_directory argument for train dataset and use test_data_directory for test dataset.
 ### example 
-    python training_our_method.py -cancer_name BRCA -data_directory sample_data/TCGA_BRCA_input.csv -lr 0.001 -epoch 10 -batch 64 -early_stop 5 -result_folder_name result -test_data_directory sample_data/CPTAC_BRCA_input.csv
+    python DriverDNN_training.py -cancer_name BRCA -data_directory sample_data/TCGA_BRCA_input.csv -lr 0.001 -epoch 10 -batch 64 -early_stop 5 -result_folder_name result -test_data_directory sample_data/CPTAC_BRCA_input.csv
 
 # predict by DriverDNN model which is already trained
 if you want to predict your data by our trained model, you can use predict.py
 ### example 
-    python predict.py -cancer_name BRCA -test_data_directory sample_data/TCGA_BRCA_input.csv -result_folder_name result_1
+    python DriverDNN_predict.py -cancer_name BRCA -test_data_directory sample_data/TCGA_BRCA_input.csv -result_folder_name result_1
 
 ## argument
 ### 1.cancer_name
