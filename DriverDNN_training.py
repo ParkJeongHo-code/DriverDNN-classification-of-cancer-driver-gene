@@ -61,8 +61,8 @@ def train_model(inputs):
                 train_model=models.model_BRCA((train_x.shape[1]))
             elif dis_name=='PAAD':
                 train_model=models.model_PAAD((train_x.shape[1]))
-            elif dis_name=='BLCA':
-                train_model=models.model_BLCA((train_x.shape[1]))
+            elif dis_name=='PRAD':
+                train_model=models.model_PRAD((train_x.shape[1]))
 
             count_label=Counter(list(train_lbls))
             pos_=count_label[1]
