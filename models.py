@@ -56,20 +56,20 @@ def model_PAAD(input_shape):#BRCA grid search
     print(model.summary())
     return model
 
-def model_BLCA(input_shape):#BRCA grid search
+def model_PRAD(input_shape):#BRCA grid search
     inputs=layers.Input(shape=input_shape)
   
     
-    x=layers.Dense(512)(inputs)
+    x=layers.Dense(128)(inputs)
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
-    x=layers.Dropout(0.7)(x)
+    x=layers.Dropout(0.5)(x)
 
-    x=layers.Dense(256)(x)
+    x=layers.Dense(128)(x)
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
-    x=layers.Dropout(0.6)(x)
-    
+    x=layers.Dropout(0.8)(x)
+
     x=layers.Dense(64)(x)
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
