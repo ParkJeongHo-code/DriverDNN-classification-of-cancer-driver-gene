@@ -22,7 +22,7 @@ lr is meaning learning rate of model training.
 epoch is meaning epoch of model training.
 
 ### 5.batch
-batch argument is meanin batch size of model training.
+batch argument is meaning batch size of model training.
 
 ### 6.early_stop
 early_stop argument is number of epochs with no improvement after which training will be stopped.
