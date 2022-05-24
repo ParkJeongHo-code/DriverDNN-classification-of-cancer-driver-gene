@@ -41,9 +41,7 @@ def preditc_data(inputs):
     test_labels=list(np.array(test_labels).reshape(-1,))
     test_gene_list=pd.DataFrame(test_gene_list)
     test_data=test_data.loc[:,['synonymous_variant', 'stop_gained', 'missense_variant','frameshift_variant', 'splice', 'inframe', 'lost_stop and start', 'deg','related_pathway', 'dir_pathway', 'muta_count', 'miss_ratio', 'PPI']]
-    model1=tf.keras.models.load_model('trained_model/'+inputs['dis_name']+'_model_idx0.h5')
-    model2=tf.keras.models.load_model('trained_model/'+inputs['dis_name']+'_model_idx1.h5')
-    model3=tf.keras.models.load_model('trained_model/'+inputs['dis_name']+'_model_idx2.h5')
+    model1=tf.keras.models.load_model('trained_model/'+inputs['dis_name']+'_model_idx3.h5')
     predicts=model1.predict(test_data)
     pos_score=[]
     pred_label=[]
@@ -56,32 +54,9 @@ def preditc_data(inputs):
     test_gene_list['classification']=pred_label
     test_gene_list.sort_values(by=['pos_score'], axis=0, ascending=False,inplace=True)
     test_gene_list.to_csv(inputs['folder_name']+'/result_1.csv',index=False)
-    predicts=model2.predict(test_data)
-    pos_score=[]
-    pred_label=[]
-    for pred in predicts:
-        pred_label.append(pred.argmax())
-        pos_score.append(pred[1])
-    fpr, tpr, thresholds = roc_curve(test_labels,pos_score,pos_label=1)
-    test_auc_2=auc(fpr, tpr)
-    test_gene_list['pos score']=pos_score
-    test_gene_list['classification']=pred_label
-    test_gene_list.sort_values(by=['pos_score'], axis=0, ascending=False,inplace=True)
-    test_gene_list.to_csv(inputs['folder_name']+'/result_2.csv',index=False)        
-    predicts=model3.predict(test_data)
-    pos_score=[]
-    pred_label=[]
-    for pred in predicts:
-        pred_label.append(pred.argmax())
-        pos_score.append(pred[1])
-    fpr, tpr, thresholds = roc_curve(test_labels,pos_score,pos_label=1)
-    test_auc_3=auc(fpr, tpr)
-    test_gene_list['pos score']=pos_score
-    test_gene_list['classification']=pred_label
-    test_gene_list.sort_values(by=['pos_score'], axis=0, ascending=False,inplace=True)
-    test_gene_list.to_csv(inputs['folder_name']+'/result_3.csv',index=False)  
+
     f = open(inputs['folder_name']+"/result_AUC.txt",'a')
-    for i in [test_auc_1,test_auc_2,test_auc_3]:
+    for i in [test_auc_1]:
         data = "dataset1 AUC: %f\n" % i
         f.write(data)
     f.close()
