@@ -41,7 +41,7 @@ def preditc_data(inputs):
     test_labels=list(np.array(test_labels).reshape(-1,))
     test_gene_list=pd.DataFrame(test_gene_list)
     test_data=test_data.loc[:,['synonymous_variant', 'stop_gained', 'missense_variant','frameshift_variant', 'splice', 'inframe', 'lost_stop and start', 'deg','related_pathway', 'dir_pathway', 'muta_count', 'miss_ratio', 'PPI']]
-    model1=tf.keras.models.load_model('trained_model/'+inputs['dis_name']+'_model_idx3.h5')
+    model1=tf.keras.models.load_model('trained_model/'+inputs['dis_name']+'_model.h5')
     predicts=model1.predict(test_data)
     pos_score=[]
     pred_label=[]
