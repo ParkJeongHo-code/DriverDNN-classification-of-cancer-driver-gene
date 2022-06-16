@@ -48,18 +48,12 @@ def preditc_data(inputs):
     for pred in predicts:
         pred_label.append(pred.argmax())
         pos_score.append(pred[1])
-    fpr, tpr, thresholds = roc_curve(test_labels,pos_score,pos_label=1)
-    test_auc_1=auc(fpr, tpr)
+
     test_gene_list['pos_score']=pos_score
     test_gene_list['classification']=pred_label
     test_gene_list.sort_values(by=['pos_score'], axis=0, ascending=False,inplace=True)
     test_gene_list.to_csv(inputs['folder_name']+'/result_1.csv',index=False)
 
-    f = open(inputs['folder_name']+"/result_AUC.txt",'a')
-    for i in [test_auc_1]:
-        data = "dataset1 AUC: %f\n" % i
-        f.write(data)
-    f.close()
 
 if __name__ == "__main__" :
     inputs = arg_parse()
