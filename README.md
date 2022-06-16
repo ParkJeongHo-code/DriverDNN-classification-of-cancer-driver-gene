@@ -59,6 +59,6 @@ you can reproduce cross validation based experiment by command below.
     python reproduce_experiment.py -cancer_name BRCA -data_directory sample_data/TCGA_BRCA_input.csv -lr 0.001 -epoch 10 -batch 64 -early_stop 5 -result_folder_name result 
 ## The experiment that using CPTAC dataset 
 you can reproduce experiment that using CPTAC dataset by command below.
-### command for reproducing cross validation based experiment
+### command for reproducing experiment that using CPTAC dataset 
     python reproduce_experiment.py -cancer_name BRCA -data_directory sample_data/TCGA_BRCA_input.csv -lr 0.001 -epoch 10 -batch 64 -early_stop 5 -result_folder_name result -test_data_directory sample_data/CPTAC_BRCA_input.csv
 
