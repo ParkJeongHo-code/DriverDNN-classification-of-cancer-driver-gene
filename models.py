@@ -1,7 +1,7 @@
 
 import tensorflow as tf 
 from tensorflow.keras import layers,optimizers
-from sklearn.metrics import accuracy_score,roc_curve,auc
+from sklearn.metrics import accuracy_score,roc_curve,auc,balanced_accuracy_score
 
 
 def model_BRCA(input_shape):
@@ -111,10 +111,12 @@ def training(model2,train_x,train_lbls,test_x,test_lbls,epochs,batch_size,early_
         train_acc=accuracy_score(list(train_lbls),preds)
         fpr, tpr, thresholds = roc_curve(list(train_lbls), preds_p,pos_label=1)
         train_auc=auc(fpr, tpr)
+        train_bacc=balanced_accuracy_score(list(train_lbls),preds)
         print('\n\nepoch: ',epoch+1)
         print('\ntrain')
         print('acc: ',train_acc)
         print('auc: ',train_auc)
+        print('balanced_accuracy_score: ',train_bacc)
         print()
         train_aucss.append(train_auc)
         
@@ -135,11 +137,12 @@ def training(model2,train_x,train_lbls,test_x,test_lbls,epochs,batch_size,early_
         acc=accuracy_score(list(test_lbls),preds)
         fpr, tpr, thresholds = roc_curve(list(test_lbls), preds_p,pos_label=1)
         auc_score=auc(fpr, tpr)
+        test_bacc=balanced_accuracy_score(list(test_lbls),preds)
 
         print('\ntest')
         print('acc: ',acc)
         print('auc: ',auc_score)
-
+        print('balanced_accuracy_score: ',train_bacc)
         aucss.append(auc_score)
         if max_auc_score ==0 and train_auc>0.80 and train_acc>0.80 :
 
