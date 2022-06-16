@@ -6,8 +6,7 @@ In our study, we classify BRCA, PAAD and BLCA cancer driver gene by deep neural 
 if you want to train your data, you can use DriverDNN_training.py
 ## argument
 ### 1.cancer_name
-cancer_name argument is meaning TCGA cancer name.
-ex) BRCA, PAAD...
+cancer_name argument is meaning TCGA cancer name.(One of the following: BRCA, PAAD, PRAD)
 
 ### 2.data_directory 
 when you have one dataset and you want to seperate the dataset by train and test,don't use test_data_directory argument, and use only data_directory argument. 
