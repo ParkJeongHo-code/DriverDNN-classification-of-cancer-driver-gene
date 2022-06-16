@@ -117,6 +117,7 @@ def training(model2,train_x,train_lbls,test_x,test_lbls,epochs,batch_size,early_
         print('\n\nepoch: ',epoch+1)
         print('\ntrain')
         print('class_weight: ',class_w)
+        print('train x shape: ',train_x.shape)
         print('acc: ',train_acc)
         print('auc: ',train_auc)
         print('balanced_accuracy_score: ',train_bacc)
@@ -143,6 +144,7 @@ def training(model2,train_x,train_lbls,test_x,test_lbls,epochs,batch_size,early_
         test_bacc=balanced_accuracy_score(list(test_lbls),preds)
 
         print('\ntest')
+        print('test x shape: ',test_x.shape)
         print('acc: ',acc)
         print('auc: ',auc_score)
         print('balanced_accuracy_score: ',test_bacc)
