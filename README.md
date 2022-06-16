@@ -48,3 +48,7 @@ directory of data that you wanna predict.
 
 ### 3.result_folder_name
 folder name that you wanna save result file.
+
+# reproducing an experiment in paper
+if you want to reproduce our experiment in paper , you
+## 
