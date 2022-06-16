@@ -66,7 +66,7 @@ def train_model(inputs):
 
             count_label=Counter(list(train_lbls))
             pos_=count_label[1]
-            neg_=count_label[1]
+            neg_=count_label[0]
 
 
             total=pos_+neg_
@@ -115,7 +115,7 @@ def train_model(inputs):
             train_model=models.model_BLCA((train_x.shape[1]))
         count_label=Counter(list(train_lbls))
         pos_=count_label[1]
-        neg_=count_label[1]
+        neg_=count_label[0]
 
 
         total=pos_+neg_
