@@ -129,7 +129,7 @@ def train_model(inputs):
         test_data=pd.read_csv(inputs['test_data_dir'],sep=test_sep_)
         test_data=test_data.loc[:,['gene_name','synonymous_variant', 'stop_gained', 'missense_variant','frameshift_variant', 'splice', 'inframe', 'lost_stop and start', 'deg','related_pathway', 'dir_pathway', 'muta_count', 'miss_ratio', 'PPI']]
         test_data.set_index('gene_name',inplace=True)
-        filtered_test_g=list(pd.DataFrame('filtered_gene_list/'+dis_name+'_CPTAC_compare.csv').loc[:,'gene'])
+        filtered_test_g=list(pd.read_csv('filtered_gene_list/'+dis_name+'_CPTAC_compare.csv').loc[:,'gene'])
         test_data=test_data.loc[filtered_test_g,:]
         test_labels=[]
         for test_gene in list(test_data.index):
