@@ -142,12 +142,7 @@ def train_model(inputs):
                 test_labels.append(0)
         test_x=np.array(test_data)
         test_lbls=np.array(test_labels)
-        if dis_name=='BRCA':
-            train_model=models.model_BRCA((train_x.shape[1]))
-        elif dis_name=='PAAD':
-            train_model=models.model_PAAD((train_x.shape[1]))
-        elif dis_name=='BLCA':
-            train_model=models.model_BLCA((train_x.shape[1]))
+        
         count_label=Counter(list(train_lbls))
 
         pos_=count_label[1]
@@ -166,6 +161,13 @@ def train_model(inputs):
         save_model_dir=inputs['folder_name']+'/model_test_full.h5'
         all_auc=[]
         for repeat in range(6):
+            if dis_name=='BRCA':
+                train_model=models.model_BRCA((train_x.shape[1]))
+            elif dis_name=='PAAD':
+                train_model=models.model_PAAD((train_x.shape[1]))
+            elif dis_name=='BLCA':
+                train_model=models.model_BLCA((train_x.shape[1]))
+
             max_auc=models.training(train_model,train_x,train_lbls,test_x,test_lbls,epochs,batch_size,early_stop,class_w,save_model_dir,learning_rate)
             all_auc.append(max_auc)
         print('mean of 6 AUC: ',np.array(all_auc).mean())
