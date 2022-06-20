@@ -31,7 +31,6 @@ def arg_parse():
     parser.add_argument('-lr', '--learning_rate', help="", required=True)
     parser.add_argument('-epoch', '--epochs', help="", required=True)
     parser.add_argument('-batch_size', '--batch_size_', help="", required=True)
-    parser.add_argument('-early_stop', '--early_stop_', help="", required=True)
     parser.add_argument('-result_folder_name', '--folder_name',default="result", help="", required=True)
     parser.add_argument('-test_data_directory', '--test_data_dir',default="NA", help="", required=False)
     args = vars(parser.parse_args())
@@ -161,7 +160,7 @@ def train_model(inputs):
         class_weight = {0: weight_for_0, 1: weight_for_1}
         epochs=int(inputs['epochs'])
         batch_size=int(inputs['batch_size_'])
-        early_stop=int(inputs['early_stop_'])
+        early_stop=epochs
         learning_rate=float(inputs['learning_rate'])
         class_w=class_weight
         save_model_dir=inputs['folder_name']+'/model_test_full.h5'
