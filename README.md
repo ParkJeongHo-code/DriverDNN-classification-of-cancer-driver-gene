@@ -57,7 +57,7 @@ early_stop argument is removed in this code.
 ## cross validation based 
 you can reproduce cross validation based experiment by command below.
 ### command for reproducing cross validation based experiment
-    python reproduce_experiment.py -cancer_name BRCA -data_directory sample_data/TCGA_BRCA_input.csv -lr 0.001 -epoch 100 -batch_size 16 -result_folder_name result 
+    python reproduce_experiment.py -cancer_name BRCA -data_directory sample_data/TCGA_BRCA_input.csv -lr 0.001 -epoch 100 -batch_size 64 -result_folder_name result 
 ## The experiment that using CPTAC dataset 
 you can reproduce experiment that using CPTAC dataset by command below.
 ### command for reproducing experiment that using CPTAC dataset 
