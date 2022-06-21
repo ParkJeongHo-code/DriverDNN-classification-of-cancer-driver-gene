@@ -93,7 +93,7 @@ def train_model(inputs):
                 class_weight = {0: weight_for_0, 1: weight_for_1}
                 epochs=int(inputs['epochs'])
                 batch_size=int(inputs['batch_size_'])
-                early_stop=int(inputs['early_stop_'])
+                early_stop=epochs+1
                 learning_rate=float(inputs['learning_rate'])
 
                 class_w=class_weight
@@ -155,7 +155,7 @@ def train_model(inputs):
         class_weight = {0: weight_for_0, 1: weight_for_1}
         epochs=int(inputs['epochs'])
         batch_size=int(inputs['batch_size_'])
-        early_stop=epochs
+        early_stop=epochs+1
         learning_rate=float(inputs['learning_rate'])
         class_w=class_weight
         save_model_dir=inputs['folder_name']+'/model_test_full.h5'
