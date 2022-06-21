@@ -52,8 +52,8 @@ folder name that you wanna save result file.
 # reproducing an experiment in paper
 if you want to reproduce our experiment in paper , you can use reproduce_experiment.py
 ## argument
-argument is same with argument of DriverDNN_training.py \
-early_stop argument is removed in this code
+argument is same with argument of DriverDNN_training.py. \
+early_stop argument is removed in this code.
 ## cross validation based 
 you can reproduce cross validation based experiment by command below.
 ### command for reproducing cross validation based experiment
