@@ -54,7 +54,7 @@ if you want to reproduce our experiment in paper , you can use reproduce_experim
 ## argument
 argument is same with argument of DriverDNN_training.py. \
 early_stop argument is removed in this code.
-## cross validation based 
+## cross validation based (using only TCGA dataset)
 you can reproduce cross validation based experiment by command below.
 ### command for reproducing cross validation based experiment
     python reproduce_experiment.py -cancer_name BRCA -data_directory sample_data/TCGA_BRCA_input.csv -lr 0.001 -epoch 100 -batch_size 64 -result_folder_name result 
