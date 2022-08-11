@@ -32,7 +32,7 @@ def model_BRCA(input_shape):
     print(model.summary())
     return model
 
-def model_PAAD(input_shape):#BRCA grid search
+def model_PAAD(input_shape):
     inputs=layers.Input(shape=input_shape)
     initializer = tf.keras.initializers.HeNormal()
 
@@ -60,7 +60,7 @@ def model_PAAD(input_shape):#BRCA grid search
     print(model.summary())
     return model
 
-def model_PRAD(input_shape):#BRCA grid search
+def model_PRAD(input_shape):
     inputs=layers.Input(shape=input_shape)
     initializer = tf.keras.initializers.HeNormal()
 
@@ -80,6 +80,270 @@ def model_PRAD(input_shape):#BRCA grid search
     x=layers.Activation('relu')(x)
 
     x=layers.Dense(2,kernel_initializer=initializer,activation='softmax')(x)
+    model=tf.keras.models.Model(inputs=inputs,outputs=x)   
+    print(model.summary())
+    return model
+
+def model_BLCA(input_shape):
+    inputs=layers.Input(shape=input_shape)
+    initializer = tf.keras.initializers.HeNormal()
+
+
+    x=layers.Dense(512,kernel_initializer=initializer)(inputs)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.7)(x)
+
+    x=layers.Dense(256,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.6)(x)
+
+    x=layers.Dense(64,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+
+    x=layers.Dense(2,activation='softmax')(x)
+    model=tf.keras.models.Model(inputs=inputs,outputs=x)   
+    print(model.summary())
+    return model
+
+def model_GBM(input_shape):
+    inputs=layers.Input(shape=input_shape)
+    initializer = tf.keras.initializers.HeNormal()
+
+
+    x=layers.Dense(128,kernel_initializer=initializer)(inputs)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.7)(x)
+
+    x=layers.Dense(128,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.5)(x)
+
+    x=layers.Dense(64,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+
+    x=layers.Dense(2,activation='softmax')(x)
+    model=tf.keras.models.Model(inputs=inputs,outputs=x)   
+    print(model.summary())
+    return model
+def model_READ(input_shape):
+    inputs=layers.Input(shape=input_shape)
+    initializer = tf.keras.initializers.HeNormal()
+
+
+    x=layers.Dense(128,kernel_initializer=initializer)(inputs)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.6)(x)
+
+    x=layers.Dense(128,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.5)(x)
+
+    x=layers.Dense(64,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+
+    x=layers.Dense(2,activation='softmax')(x)
+    model=tf.keras.models.Model(inputs=inputs,outputs=x)   
+    print(model.summary())
+    return model
+
+def model_SKCM(input_shape):
+    inputs=layers.Input(shape=input_shape)
+    initializer = tf.keras.initializers.HeNormal()
+
+
+    x=layers.Dense(128,kernel_initializer=initializer)(inputs)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.6)(x)
+
+    x=layers.Dense(128,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.7)(x)
+
+    x=layers.Dense(64,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+
+    x=layers.Dense(2,activation='softmax')(x)
+    model=tf.keras.models.Model(inputs=inputs,outputs=x)   
+    print(model.summary())
+    return model
+
+def model_KIRP(input_shape):
+    inputs=layers.Input(shape=input_shape)
+    initializer = tf.keras.initializers.HeNormal()
+
+
+    x=layers.Dense(128,kernel_initializer=initializer)(inputs)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.6)(x)
+
+    x=layers.Dense(128,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.7)(x)
+
+    x=layers.Dense(64,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+
+    x=layers.Dense(2,activation='softmax')(x)
+    model=tf.keras.models.Model(inputs=inputs,outputs=x)   
+    print(model.summary())
+    return model
+
+def model_KIRC(input_shape):#BRCA grid search
+    inputs=layers.Input(shape=input_shape)
+    initializer = tf.keras.initializers.HeNormal()
+
+
+    x=layers.Dense(128,kernel_initializer=initializer)(inputs)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.5)(x)
+
+    x=layers.Dense(128,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.7)(x)
+
+    x=layers.Dense(64,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+
+    x=layers.Dense(2,activation='softmax')(x)
+    model=tf.keras.models.Model(inputs=inputs,outputs=x)   
+    print(model.summary())
+    return model
+
+def model_LUSC(input_shape):#BRCA grid search
+    inputs=layers.Input(shape=input_shape)
+    initializer = tf.keras.initializers.HeNormal()
+
+
+    x=layers.Dense(128,kernel_initializer=initializer)(inputs)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.6)(x)
+
+    x=layers.Dense(128,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.5)(x)
+
+    x=layers.Dense(64,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+
+    x=layers.Dense(2,activation='softmax')(x)
+    model=tf.keras.models.Model(inputs=inputs,outputs=x)   
+    print(model.summary())
+    return model
+
+def model_LUAD(input_shape):#BRCA grid search
+    inputs=layers.Input(shape=input_shape)
+    initializer = tf.keras.initializers.HeNormal()
+
+
+    x=layers.Dense(128,kernel_initializer=initializer)(inputs)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.5)(x)
+
+    x=layers.Dense(128,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.6)(x)
+
+    x=layers.Dense(64,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+
+    x=layers.Dense(2,activation='softmax')(x)
+    model=tf.keras.models.Model(inputs=inputs,outputs=x)   
+    print(model.summary())
+    return model
+
+def model_SARC(input_shape):#BRCA grid search
+    inputs=layers.Input(shape=input_shape)
+    initializer = tf.keras.initializers.HeNormal()
+
+
+    x=layers.Dense(256,kernel_initializer=initializer)(inputs)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.6)(x)
+
+    x=layers.Dense(256,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.7)(x)
+
+    x=layers.Dense(64,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+
+    x=layers.Dense(2,activation='softmax')(x)
+    model=tf.keras.models.Model(inputs=inputs,outputs=x)   
+    print(model.summary())
+    return model
+
+
+def model_COAD(input_shape):#BRCA grid search
+    inputs=layers.Input(shape=input_shape)
+    initializer = tf.keras.initializers.HeNormal()
+
+
+    x=layers.Dense(128,kernel_initializer=initializer)(inputs)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.7)(x)
+
+    x=layers.Dense(128,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.5)(x)
+
+    x=layers.Dense(64,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+
+    x=layers.Dense(2,activation='softmax')(x)
+    model=tf.keras.models.Model(inputs=inputs,outputs=x)   
+    print(model.summary())
+    return model
+
+def model_HNSC(input_shape):#BRCA grid search
+    inputs=layers.Input(shape=input_shape)
+    initializer = tf.keras.initializers.HeNormal()
+
+
+    x=layers.Dense(128,kernel_initializer=initializer)(inputs)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.6)(x)
+
+    x=layers.Dense(128,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+    x=layers.Dropout(0.7)(x)
+
+    x=layers.Dense(64,kernel_initializer=initializer)(x)
+    x=layers.BatchNormalization()(x)
+    x=layers.Activation('relu')(x)
+
+    x=layers.Dense(2,activation='softmax')(x)
     model=tf.keras.models.Model(inputs=inputs,outputs=x)   
     print(model.summary())
     return model
