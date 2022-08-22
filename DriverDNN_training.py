@@ -133,8 +133,30 @@ def train_model(inputs):
             train_model=models.model_BRCA((train_x.shape[1]))
         elif dis_name=='PAAD':
             train_model=models.model_PAAD((train_x.shape[1]))
+        elif dis_name=='PRAD':
+            train_model=models.model_PRAD((train_x.shape[1]))
         elif dis_name=='BLCA':
             train_model=models.model_BLCA((train_x.shape[1]))
+        elif dis_name=='GBM':      
+            train_model=models.model_GBM((train_x.shape[1]))
+        elif dis_name=='READ':
+            train_model=models.model_READ((train_x.shape[1]))
+        elif dis_name=='SKCM':
+            train_model=models.model_SKCM((train_x.shape[1]))
+        elif dis_name=='KIRP':      
+            train_model=models.model_KIRP((train_x.shape[1]))
+        elif dis_name=='KIRC':      
+            train_model=models.model_KIRC((train_x.shape[1]))
+        elif dis_name=='LUSC':      
+            train_model=models.model_LUSC((train_x.shape[1]))
+        elif dis_name=='LUAD':      
+            train_model=models.model_LUAD((train_x.shape[1]))
+        elif dis_name=='SARC':      
+            train_model=models.model_SARC((train_x.shape[1]))
+        elif dis_name=='COAD':      
+            train_model=models.model_COAD((train_x.shape[1]))
+        elif dis_name=='HNSC':      
+            train_model=models.model_HNSC((train_x.shape[1]))
         count_label=Counter(list(train_lbls))
         pos_=count_label[1]
         neg_=count_label[0]
