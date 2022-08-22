@@ -49,17 +49,5 @@ directory of data that you wanna predict.
 ### 3.result_folder_name
 folder name that you wanna save result file.
 
-# reproducing an experiment in paper
-if you want to reproduce our experiment in paper , you can use reproduce_experiment.py
-## argument
-argument is same with argument of DriverDNN_training.py. \
-early_stop argument is removed in this code.
-## cross validation based (using only TCGA dataset)
-you can reproduce cross validation based experiment by command below.
-### command for reproducing cross validation based experiment
-    python reproduce_experiment.py -cancer_name BRCA -data_directory sample_data/TCGA_BRCA_input.csv -lr 0.001 -epoch 100 -batch_size 64 -result_folder_name result 
-## The experiment that using CPTAC dataset 
-you can reproduce experiment that using CPTAC dataset by command below.
-### command for reproducing experiment that using CPTAC dataset 
-    python reproduce_experiment.py -cancer_name BRCA -data_directory sample_data/TCGA_BRCA_input.csv -lr 0.001 -epoch 100 -batch_size 16 -result_folder_name result -test_data_directory sample_data/CPTAC_BRCA_input.csv
+
 
