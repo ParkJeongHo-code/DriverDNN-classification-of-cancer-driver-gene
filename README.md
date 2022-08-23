@@ -1,6 +1,6 @@
 # DriverDNN: classification-of-cancer-driver-gene
 Goal of this project is classification of specific cancer driver gene.
-In our study, we classify BRCA, PAAD and BLCA cancer driver gene by deep neural network.
+In our study, we classify 14 cancer driver gene by deep neural network.
 
 # training by DriverDNN
 if you want to train your data, you can use DriverDNN_training.py
