@@ -39,6 +39,7 @@ def train_model(inputs):
     else:
         sep_=','
     train_data=pd.read_csv(inputs['data_dir'],sep=sep_)
+    train_data['gene_name']=train_data['gene_ens']
     train_data=train_data.loc[:,['gene_name','synonymous_variant', 'stop_gained', 'missense_variant','frameshift_variant', 'splice', 'inframe', 'lost_stop and start', 'deg','related_pathway', 'dir_pathway', 'muta_count', 'miss_ratio', 'PPI']]
     train_labels=[]
     for train_gene in list(train_data.loc[:,'gene_name']):
