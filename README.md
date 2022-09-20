@@ -1,7 +1,19 @@
 # DriverDNN: classification-of-cancer-driver-gene
 Goal of this project is classification of specific cancer driver gene.
 In our study, we classify 14 cancers driver gene by deep neural network.
-
+# make input data
+if you want to make input data, you can use data_preprocessor.py
+sample data for make input data are in sample_data folder.
+cancer_input_data.csv(ex: BRCA_input_data.csv) is input data file.
+## argument
+###1. cancer_name 
+cancer_name argument is meaning TCGA cancer name.(One of the following: BRCA, PAAD, PRAD)
+###2. out_dir
+directory for save data file
+###3. exp_data_dir
+directory of gene expresssion data
+###4. muta_data_dir
+directory of gene mutation data(maf file)
 # training by DriverDNN
 if you want to train your data, you can use DriverDNN_training.py
 ## argument
