@@ -120,7 +120,7 @@ def act(inputs):
     muta_gene=list(data.loc[:,'gene'].drop_duplicates())
 
     data.index=list(range(data.shape[0]))
-    protein=pd.read_csv('/mnt/disk1/driver_gene/data/hsa_id_conv.txt',sep='\t')
+    protein=pd.read_csv('./ref_data/hsa_id_conv.txt',sep='\t')
     protein_filter=protein[protein['gene_biotype']=='protein_coding']
     pro_idx=[]
     iter_protein_filter=1
