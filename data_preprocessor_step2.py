@@ -29,7 +29,6 @@ def arg_parse():
     parser.add_argument('-step_1_data_dir', '--step_1_data', help="TCGA cancer name", required=True)
     parser.add_argument('-out_dir', '--save_dir', help="TCGA cancer name",default='', required=False)
     parser.add_argument('-exp_data_dir', '--exp_dir', help="TCGA cancer name",default='', required=False)
-
     args = vars(parser.parse_args())
     return args
 
@@ -50,13 +49,10 @@ def act(inputs):
             dict_[gene2].append(gene1)
         return dict_
     dis_name=inputs['dis_name']# get disease name
-    #deg_abs=input('deg 절댓값 여부: ')
 
 
-    #dis_name='BRCA'
-    #deg_abs='f'
 
-    #data_exp=pd.read_csv("/home/bmlserver/park-few-shot/data/bf_preprocess/"+dis_name+"/gene_exp/"+dis_name+"-htseq_fpkm.tsv",sep='\t')#get gene expression raw data
+
     data_exp=pd.read_csv(inputs['exp_dir'],sep='\t')
     gene_exp=[]
 
@@ -71,7 +67,6 @@ def act(inputs):
 
     #%%
     data_exp=data_exp.set_index('Ensembl_ID')
-    #print(data_exp.loc['ENSG00000023902','TCGA-3C-AAAU-01A'])
 
 
     #%% filtering normal sample
@@ -152,7 +147,7 @@ def act(inputs):
 
     ss=data.groupby('gene')
     total_gene=len(list(set(list(data.loc[:,'gene']))))
-    #%% calculate gene mutation features(fraction) and 
+    #%% calculate gene mutation features(fraction)
     last_data=[]
     for_col=0
     esang=0
@@ -207,94 +202,30 @@ def act(inputs):
         iter+=1
     last_data=pd.DataFrame(last_data)
     last_data.columns=cols
-    #%% calculate deg
-    """
-    deges=[]
-    for i in range(last_data.shape[0]):
-        deges.append(last_data.loc[i,'gene_exp']-good_sample_sum.loc[last_data.loc[i,'gene']])
-    last_data['deg']=deges
-    """
+
     last_data['deg']=list(deg__.loc[list(last_data.loc[:,'gene']),])
     last_data.dropna(subset=['deg'],inplace=True)
     print(last_data.isna().sum())
     #%%
     #%% make tool for label
-
-    """
-    ref_data11='/home/bmlserver/park-few-shot/data/for_ref/prev_gene_to_new.txt'
-
-    ref_data33='/home/bmlserver/park-few-shot/data/for_ref/ensembl_gene.txt'
-    label=pd.read_csv('/home/bmlserver/park-few-shot/data/label/mutation_download_tab.txt',sep='\t')
-    last_label,count,dddaaa=driver_gene_make_label().get_value(label,ref_data11,ref_data33)
-    #%% make labels
-    lbls=[]
-    labels=last_label[dis_name]
-    for i in range(last_data.shape[0]):
-        if last_data.loc[i,'gene'] in labels:
-            lbls.append(1)
-        else:
-            lbls.append(0)
-    last_data['label']=lbls
-    """
-    #%%
-
-    """
-    drop_col=[]
-    last_data_sum=last_data.iloc[:,1:].sum(axis=0)
-    for i in range(last_data_sum.shape[0]):
-        if last_data_sum.iloc[i]==0:
-            drop_col.append(cols[i+1])
-    last_data_drop=last_data.drop(drop_col,axis=1)
-    """     
+    
     last_data_protein=last_data
     last_data_protein.index==list(range(last_data_protein.shape[0]))
 
         
 
     #%% filtering protein coding gene
-    """
-    protein=pd.read_csv('/home/bmlserver/park-few-shot/data/hsa_id_conv.txt',sep='\t')
-    protein_filter=protein[protein['gene_biotype']=='protein_coding']
-    pro_idx=[]
-    for i in range(last_data_drop.shape[0]):
-        if last_data_drop.loc[i,'gene'] in list(protein_filter.loc[:,'ensembl_gene_id']):
-            pro_idx.append(i)
-    last_data_protein=last_data_drop.loc[pro_idx,:]
-    last_data_protein.index=list(range(last_data_protein.shape[0]))
-    """
-    """
-    degss=[]
-    for i in range(last_data_protein.shape[0]):
-        degss.append(data_exp.loc[last_data_protein.loc[i,'gene'],'deg'])
-    last_data_protein['deg']=degss
-    print(last_data_protein)
-    """
-    #%% calculate pathway feature
-    # -*- coding: utf-8 -*-
-    """
-    Created on Wed Nov 24 12:58:54 2021
-
-    @author: user
-    """
-
 
     dis_pathway={}
     dis_pathway['BRCA']=['hsa05224','hsa04151','hsa04310','hsa04330','hsa04915','hsa04115','hsa03440', 'hsa04151','hsa04110', 'hsa04010']
     dis_pathway['PRAD']=['hsa05215','hsa00140','hsa04010','hsa04060','hsa04110','hsa04115','hsa04151','hsa04210','hsa05202']
     dis_pathway['BLCA']=['hsa05219','hsa04010','hsa04012','hsa04110','hsa04115','hsa04370','hsa04520']
     dis_pathway['PAAD']=['hsa05212','hsa04010','hsa04012','hsa04110','hsa04115','hsa04151','hsa04210','hsa04350','hsa04370','hsa04630']
-    dis_pathway['THCA']=['hsa05216','hsa03320','hsa04010','hsa04115','hsa04310','hsa04520']
-    #dis_pathway['LAML']=['hsa05221','hsa04010','hsa04110','hsa04150','hsa04151','hsa04210','hsa04630','hsa04640'] 
     dis_pathway['SKCM']=['hsa05218','hsa04010','hsa04110','hsa04115','hsa04151','hsa04520','hsa04916']
-    dis_pathway['UCEC']=['hsa05213','hsa04010','hsa04012','hsa04060','hsa04110','hsa04115','hsa04151','hsa04310','hsa04520']
-    dis_pathway['LAML']=['hsa05221','hsa04010','hsa04110','hsa04150','hsa04151','hsa04210','hsa04630','hsa04640']
     dis_pathway['COAD']=['hsa05210','hsa04010','hsa04012','hsa04110','hsa04115','hsa04150','hsa04151','hsa04210','hsa04310','hsa04350']
-    dis_pathway['LGG']=['hsa05214','hsa04010','hsa04012','hsa04020','hsa04060','hsa04110','hsa04115','hsa04150']
     dis_pathway['GBM']=['hsa05214','hsa04010','hsa04012','hsa04020','hsa04060','hsa04110','hsa04115','hsa04150']
-    dis_pathway['UCEC']=['hsa05213','hsa04010','hsa04012','hsa04060','hsa04110','hsa04115','hsa04151','hsa04310','hsa04520']
     dis_pathway['SARC']=['hsa05200','hsa03320','hsa04010','hsa04020','hsa04024','hsa04060','hsa04066','hsa04110','hsa04115','hsa04150','hsa04151','hsa04210','hsa04310','hsa04330','hsa04340','hsa04350','hsa04370','hsa04510','hsa04512','hsa04520','hsa04630','hsa04915']
     dis_pathway['READ']=['hsa05210','has04010','hsa04012','hsa04110','hsa04115','hsa04150','hsa04151','hsa04210','hsa04310','hsa04350']
-    dis_pathway['LIHC']=['hsa05225','hsa04010','hsa04020','hsa04110','hsa04115','hsa04151','hsa04310','hsa04350','hsa04932','hsa04936','hsa05160','hsa05161']
     dis_pathway['KIRC']=['hsa05211','hsa00020','hsa04010','hsa04066','hsa04120','hsa04350','hsa04370']
     dis_pathway['KIRP']=['hsa05211','hsa00020','hsa04010','hsa04066','hsa04120','hsa04350','hsa04370']
     dis_pathway['LUSC']=['hsa05223','hsa04010','hsa04012','hsa04014','hsa04020','hsa04110','hsa04115','hsa04151']
@@ -332,10 +263,6 @@ def act(inputs):
 
         pathway_iter+=1
 
-
-    #train_data=pd.read_csv('/home/bmlserver/park-few-shot/data/new_version/dis_genet_new_version_'+dis_name+'.csv')
-
-    #train_data.rename(columns={'Ensembl_ID':'gene'},inplace=True)
     add_col=[]
     add_col_dir_=[]
     pathway_iter=1
@@ -372,21 +299,6 @@ def act(inputs):
     div_fact=len(dis_pathway[dis_name])-1
     last_data_protein['related_pathway']=np.array(add_col)
     last_data_protein['dir_pathway']=add_col_dir_
-
-
-    #%%
-
-
-
-
-    #%%
-
-
-
-
-
-            
-
     train_data=last_data_protein
     splice=np.array(train_data.loc[:,'splice_region_variant'])
     inframe=np.array(train_data.loc[:,'inframe_insertion'])+np.array(train_data.loc[:,'conservative_inframe_deletion'])+np.array(train_data.loc[:,'inframe_deletion'])
@@ -443,17 +355,6 @@ def act(inputs):
     ad_node=make_inter_dict(grap_data)
 
     last_data_protein=new_train
-
-
-
-
-
-
-    
-    
-    
-
-
     last_data_protein=last_data_protein.set_index('gene_ens')
     cancer_type_muta=list(last_data_protein.columns)
     cancer_type_muta=['stop_gained','splice','frameshift_variant','missense_variant']
