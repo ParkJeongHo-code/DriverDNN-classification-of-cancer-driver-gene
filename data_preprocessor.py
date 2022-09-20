@@ -12,9 +12,9 @@ import argparse
 def arg_parse():
     parser = argparse.ArgumentParser()
     parser.add_argument('-cancer_name', '--dis_name', help="TCGA cancer name", required=True)
-    parser.add_argument('-out_dir', '--save_dir', help="TCGA cancer name",default='', required=False)
-    parser.add_argument('-exp_data_dir', '--exp_dir', help="TCGA cancer name",default='', required=False)
-    parser.add_argument('-muta_data_dir', '--muta_dir', help="TCGA cancer name",default='', required=False)
+    parser.add_argument('-out_dir', '--save_dir', help="directory for save file",default='', required=False)
+    parser.add_argument('-exp_data_dir', '--exp_dir', help="gene expression data directory",default='', required=False)
+    parser.add_argument('-muta_data_dir', '--muta_dir', help="maf file directory",default='', required=False)
 
     args = vars(parser.parse_args())
     return args
