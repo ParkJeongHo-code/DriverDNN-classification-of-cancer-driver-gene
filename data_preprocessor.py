@@ -24,7 +24,7 @@ class make_input():
         self.data=EnsemblRelease(102)
         
     def gene_to_ensembl(self,data,re_dict):
-        print('gene_ensembl')
+        print('gene ensembl mapping')
         data.index=list(range(data.shape[0]))
         ensembl=[]
         for i  in range(data.shape[0]):
@@ -40,6 +40,8 @@ class make_input():
                     
           
         data['gene_ens']=ensembl
+        print('gene ensembl mapping end')
+
         return data
         
     def get_location(self,data,ref_data):
@@ -95,7 +97,7 @@ class make_input():
         
     
     def make_last_data(self,concat_data,ref_data2):
-        print('make_last_data')
+        print('count mutation type')
     
         data_ref2=pd.read_csv(ref_data2,sep='\t',low_memory=False)
         so_varient=data_ref2.loc[:,'SO term']
@@ -120,7 +122,7 @@ class make_input():
         feature.extend(so_varient)
         last_dict=np.array(last_dict)
         return_data=pd.DataFrame(last_dict,columns=feature)    
-        
+        print('count mutation type end')
         return return_data
     def remove(self,data):
         idx=[]
@@ -199,7 +201,7 @@ class make_input():
         print(data_muta_last_2)
 
 
-        print('save data')
+        print('end step 1')
         if base_dir_out[-1]=='/':
             data_muta_last_2.to_csv(base_dir_out+disease_name+"_exp_muta_concat.csv",index=False)
             step_data_dir=base_dir_out+disease_name+"_exp_muta_concat.csv"
@@ -207,6 +209,7 @@ class make_input():
             data_muta_last_2.to_csv(base_dir_out+'/'+disease_name+"_exp_muta_concat.csv",index=False)
             step_data_dir=base_dir_out+'/'+disease_name+"_exp_muta_concat.csv"
             base_dir_out=base_dir_out+'/'
+        print('start data_preprocessor_step2.py')
 
         os.system('python3 data_preprocessor_step2.py -cancer_name '+disease_name+' -step_1_data_dir '+step_data_dir+' -out_dir '+base_dir_out+' -exp_data_dir '+data_exp_file)
  
