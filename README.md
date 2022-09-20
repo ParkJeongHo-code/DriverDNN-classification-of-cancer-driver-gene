@@ -2,9 +2,9 @@
 Goal of this project is classification of specific cancer driver gene.
 In our study, we classify 14 cancers driver gene by deep neural network.
 # make input data
-if you want to make input data, you can use data_preprocessor.py\n
-sample data for make input data are in sample_data folder.\n
-Before you run data_preprocessor.py, you have to decompress humannet_ens_PPI.zip in for_ref folder.\n
+if you want to make input data, you can use data_preprocessor.py.
+sample data for make input data are in sample_data folder.
+Before you run data_preprocessor.py, you have to decompress humannet_ens_PPI.zip in for_ref folder.
 cancer_input_data.csv(ex: BRCA_input_data.csv) is input data file.
 ## argument
 ### 1. cancer_name 
