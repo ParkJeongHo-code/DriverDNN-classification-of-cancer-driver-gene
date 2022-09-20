@@ -11,12 +11,12 @@ import numpy as np
 def arg_parse():
     parser = argparse.ArgumentParser()
     parser.add_argument('-cancer_name', '--dis_name', help="TCGA cancer name", required=True)
-    parser.add_argument('-test_data_directory', '--data_dir', help="", required=True)
+    parser.add_argument('-test_data_directory', '--data_dir', help="directory for ", required=True)
     parser.add_argument('-result_folder_name', '--folder_name',default="result", help="", required=True)
     args = vars(parser.parse_args())
     return args
 
-def preditc_data(inputs):
+def predict_data(inputs):
     os.mkdir(inputs['folder_name'])    
     driver_gene_list=list(pd.read_csv('using_Data/'+inputs['dis_name']+'_label.csv').loc[:,'gene_label'])
     file_d=list(inputs['data_dir'])
@@ -57,4 +57,4 @@ def preditc_data(inputs):
 
 if __name__ == "__main__" :
     inputs = arg_parse()
-    preditc_data(inputs)
+    predict_data(inputs)
