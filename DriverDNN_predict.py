@@ -31,6 +31,7 @@ def predict_data(inputs):
     else:
         sep_=','
     test_data=pd.read_csv(inputs['data_dir'],sep=sep_)
+    test_data['gene_name']=test_data['gene_ens']
     test_gene_list=test_data.loc[:,'gene_name']
     test_labels=[]
     for test_gene in list(test_gene_list):
