@@ -205,7 +205,7 @@ class make_input():
             step_data_dir=base_dir_out+disease_name+"_exp_muta_concat.csv"
         else:
             data_muta_last_2.to_csv(base_dir_out+'/'+disease_name+"_exp_muta_concat.csv",index=False)
-            step_data_dir=base_dir_out+disease_name+'/'+"_exp_muta_concat.csv"
+            step_data_dir=base_dir_out+'/'+disease_name+"_exp_muta_concat.csv"
             base_dir_out=base_dir_out+'/'
 
         os.system('python3 data_preprocessor_step2.py -cancer_name '+disease_name+' -step_1_data_dir '+step_data_dir+' -out_dir '+base_dir_out+' -exp_data_dir '+data_exp_file)
