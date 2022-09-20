@@ -223,8 +223,8 @@ class make_input():
                 proc.join()
 def make_data(inputs):
     
-    ref_data11='/mnt/disk1/driver_gene/data/for_ref/gene_ens_map.csv'
-    ref_data22='/mnt/disk1/driver_gene/data/for_ref/soterm_list.txt'
+    ref_data11='./for_ref/gene_ens_map.csv'
+    ref_data22='./for_ref/soterm_list.txt'
         
     make_input().make_every_data(inputs['dis_name'],inputs['save_dir'], inputs['muta_dir'], inputs['exp_dir'], ref_data11, ref_data22)
 
@@ -235,5 +235,3 @@ if __name__ == "__main__" :
     make_data(inputs)
     
     
-'/mnt/disk1/driver_gene/data/bf_preprocess/BRCA/gene_exp/BRCA-htseq_fpkm-uq.tsv'
-'/mnt/disk1/driver_gene/data/bf_preprocess/BRCA/gene_muta/TCGA.BRCA.varscan.somatic.maf'
