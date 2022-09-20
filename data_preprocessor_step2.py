@@ -325,7 +325,7 @@ def act(inputs):
 
 
 
-    grap_data=pd.read_csv('./for_ref/humannetv3_ens_ppi.csv')
+    grap_data=pd.read_csv('./for_ref/humannet_ens_PPI/humannetv3_ens_ppi.csv')
     grap_data=cut_threshold(grap_data,3.211)
 
 
