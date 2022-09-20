@@ -56,7 +56,6 @@ def act(inputs):
     data_exp=pd.read_csv(inputs['exp_dir'],sep='\t')
     gene_exp=[]
 
-    # delete version in ensembl name
     for i in range(data_exp.shape[0]):
         if '.' in data_exp.iloc[i,0]:
             gene_exp.append(data_exp.iloc[i,0].split('.')[0])
@@ -65,11 +64,9 @@ def act(inputs):
     data_exp['Ensembl_ID']=gene_exp
 
 
-    #%%
     data_exp=data_exp.set_index('Ensembl_ID')
 
 
-    #%% filtering normal sample
 
     sample_id=list(data_exp.columns)
     new_id=[]
@@ -81,7 +78,6 @@ def act(inputs):
         else:
             new_id.append(sample_id[i])
             
-    #%% get mean of normal samples gene expression
     good_samples=data_exp.loc[:,good_sample_id]
     good_sample_sum=good_samples.sum(axis=1)
     good_sample_sum=good_sample_sum/len(good_sample_id)
@@ -89,7 +85,6 @@ def act(inputs):
     bad_samples=data_exp.loc[:,new_id]
     bad_sample_sum=bad_samples.sum(axis=1)
     bad_sample_sum=bad_sample_sum/len(new_id)
-    #%%
     deg__=bad_sample_sum-good_sample_sum
     if deg__.isna().sum()>=1:
         print('nan value in deg feature')
@@ -116,7 +111,6 @@ def act(inputs):
         idx_+=1
     data.columns=col_l
     data.drop(['gene_symbol'],axis=1,inplace=True)
-    #%%
     muta_gene=list(data.loc[:,'gene'].drop_duplicates())
 
     data.index=list(range(data.shape[0]))
@@ -147,7 +141,6 @@ def act(inputs):
 
     ss=data.groupby('gene')
     total_gene=len(list(set(list(data.loc[:,'gene']))))
-    #%% calculate gene mutation features(fraction)
     last_data=[]
     for_col=0
     esang=0
@@ -205,16 +198,12 @@ def act(inputs):
 
     last_data['deg']=list(deg__.loc[list(last_data.loc[:,'gene']),])
     last_data.dropna(subset=['deg'],inplace=True)
-    print(last_data.isna().sum())
-    #%%
-    #%% make tool for label
     
     last_data_protein=last_data
     last_data_protein.index==list(range(last_data_protein.shape[0]))
 
         
 
-    #%% filtering protein coding gene
 
     dis_pathway={}
     dis_pathway['BRCA']=['hsa05224','hsa04151','hsa04310','hsa04330','hsa04915','hsa04115','hsa03440', 'hsa04151','hsa04110', 'hsa04010']
@@ -244,7 +233,6 @@ def act(inputs):
     pathways=pathway2.loc[:,'pathway'].drop_duplicates()
     pathways.index=list(range(pathways.shape[0]))
     pathway_dict={}
-    #각 pathway별로 gene 정리
     pathway_iter=1
     for jj in range(pathways.shape[0]):
         if pathways.loc[jj] in dis_pathway_list:
@@ -304,7 +292,6 @@ def act(inputs):
     inframe=np.array(train_data.loc[:,'inframe_insertion'])+np.array(train_data.loc[:,'conservative_inframe_deletion'])+np.array(train_data.loc[:,'inframe_deletion'])
     lost=np.array(train_data.loc[:,'start_lost'])+np.array(train_data.loc[:,'stop_lost'])
     col=['gene','synonymous_variant','stop_gained','missense_variant','frameshift_variant']
-    #%%
     miss_ratio=[]
     for i in range(train_data.shape[0]):
         if train_data.loc[i,'synonymous_variant']+train_data.loc[i,'missense_variant'] != 0:
@@ -312,7 +299,6 @@ def act(inputs):
         else:
             miss_ratio.append(0)
 
-    #%%
     new_train=train_data.loc[:,col]
     new_train['splice']=splice
     new_train['inframe']=inframe
@@ -323,7 +309,6 @@ def act(inputs):
     new_train['muta_count']=train_data.loc[:,'muta_count']
     new_train['miss_ratio']=miss_ratio
 
-    #%%
     col_l_2=list(new_train.columns)
     idxss=0
     new_train['gene_ens']=new_train['gene']
@@ -338,11 +323,9 @@ def act(inputs):
     new_train=new_train.loc[:,col_l_2]
     new_train.to_csv(inputs['save_dir']+dis_name+'_for_git_middle_step.csv')
 
-    print('data_save')
-    print(new_train)
 
 
-    grap_data=pd.read_csv('/mnt/disk1/driver_gene/data/graph_data/humannet/humannetv3_ens_ppi.csv')
+    grap_data=pd.read_csv('./for_ref/humannetv3_ens_ppi.csv')
     grap_data=cut_threshold(grap_data,3.211)
 
 
@@ -350,7 +333,6 @@ def act(inputs):
     grap2_=list(grap_data.loc[:,'entrez_id_2'])
     grap1_.extend(grap2_)
     grap1_=list(set(grap1_))
-    print(len(grap1_))
 
     ad_node=make_inter_dict(grap_data)
 
@@ -358,7 +340,6 @@ def act(inputs):
     last_data_protein=last_data_protein.set_index('gene_ens')
     cancer_type_muta=list(last_data_protein.columns)
     cancer_type_muta=['stop_gained','splice','frameshift_variant','missense_variant']
-    print(cancer_type_muta)
     graph_feat=[]
     max_=last_data_protein.loc[:,'muta_count']
     max_ = int(max_.quantile(.75))
@@ -404,8 +385,8 @@ def act(inputs):
     ppi_mean=last_data_protein.loc[:,'PPI'].mean()
     ppi_up=last_data_protein.loc[:,'PPI']-ppi_mean
     last_data_protein['PPI']=list(ppi_up/ppi_std)
-    print(last_data_protein)
-    print(last_data_protein.shape)
+
+    print('input_data_save')
 
     last_data_protein.to_csv(inputs['save_dir']+dis_name+'_input_data.csv')
         
