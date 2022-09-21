@@ -35,7 +35,7 @@ class make_input():
                 if data.loc[i,'gene_symbol'] in list(re_dict.keys()):
                     ensembl.append(re_dict[data.loc[i,'gene_symbol']])
                 else:
-                    ensembl.append(data.loc[i,'gene_symbol'])
+                    ensembl.append(np.nan)
 
                     
           
@@ -43,45 +43,6 @@ class make_input():
         print('gene ensembl mapping end')
 
         return data
-        
-    def get_location(self,data,ref_data):
-        starts=[]
-        ends=[]
-        for i in range(data.shape[0]):
-            try:
-                gene_name=self.data.genes_by_name(data.iloc[i,1])[0]
-                starts.append(gene_name.start)
-                ends.append(gene_name.end) 
-            except ValueError:
-                idx=[j for j in range(ref_data.shape[0]) if data.loc[i,'gene'] in str(ref_data.loc[j,'prev_symbol'])]
-                if len(idx) != 0:
-                    try:
-                        new_symbol=ref_data.loc[idx[0],'symbol']
-                        gene_name=self.data.genes_by_name(new_symbol)[0]
-                        starts.append(gene_name.start)
-                        ends.append(gene_name.end) 
-                    except ValueError:
-                        starts.append(np.nan)
-                        ends.append(np.nan)    
-                else:
-                    starts.append(np.nan)
-                    ends.append(np.nan)
-                    
-
-        data['gene_start']=starts
-        data['gene_end']=ends
-        return data
-    def make_snp_indel_col(self,concat_data):
-        print('make snp indel')
-        classi_snp_indel=concat_data.loc[:,['ref','alt']]
-        snp_or_indel=[]
-        for i in range(classi_snp_indel.shape[0]):
-            if '-' in list(classi_snp_indel.iloc[i,:]):
-                snp_or_indel.append('indel')
-            else:
-                snp_or_indel.append('snp')
-        concat_data['snp_or_indel']=snp_or_indel
-        return concat_data
         
     def remake_eff(self,data):
         print('remake_eff')
@@ -196,13 +157,35 @@ class make_input():
                 gene_exp.append(data_exp.iloc[i,0]) 
         data_exp['Ensembl_ID']=gene_exp
         data_exp.set_index('Ensembl_ID',inplace=True)
-
+        gene_express=[]
+        total_iter=data_muta.shape[0]
+        case_=list(data_exp.columns)
+        genes=list(data_exp.index)
+        for i in range(data_muta.shape[0]):
+            if data_muta.iloc[i,0] in case_ and data_muta.iloc[i,1] in genes:
+                gene_express.append(data_exp.loc[data_muta.iloc[i,1],data_muta.iloc[i,0]])
+            else:
+                gene_express.append(np.nan)
+            iter_protein_filter=i
+            if (iter_protein_filter/total_iter)*100 != 100:
+                per=str((iter_protein_filter/total_iter)*100)
+                if  per.index('.')==1:
+                    print(per[:3] + '% gene expression processed..',end='\r',flush=True)
+                else:
+                    print(per[:4] + '% gene expression processed..',end='\r',flush=True)
+            else:
+                print(str((iter_protein_filter/total_iter)*100)[:5] + '% gene expression processed..')
+        data_muta['gene_exp']=gene_express
+        data_drop_na=data_muta['gene_exp'].dropna(axis=0)
+        data_muta_last=data_muta.loc[data_drop_na.index,:]
         data_muta_last=data_muta
         data_muta_last.index=list(range(data_muta_last.shape[0]))
         data_muta_last_2=self.make_last_data(data_muta_last,ref_data2)
 
 
         print('end step 1')
+        print(data_muta_last_2.shape)
+        print('107797')
         if base_dir_out[-1]=='/':
             data_muta_last_2.to_csv(base_dir_out+disease_name+"_exp_muta_concat.csv",index=False)
             step_data_dir=base_dir_out+disease_name+"_exp_muta_concat.csv"
