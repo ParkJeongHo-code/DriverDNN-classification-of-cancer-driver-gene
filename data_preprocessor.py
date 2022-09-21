@@ -127,6 +127,8 @@ class make_input():
     def remove(self,data):
         idx=[]
         removes=[]
+        data.dropna(subset=['effect'],inplace=True)
+        data.index=list(range(data.shape[0]))
         for i in range(data.shape[0]):
             if ';' in data.loc[i,'effect']:
                 idx.append(i)
@@ -198,7 +200,6 @@ class make_input():
         data_muta_last=data_muta
         data_muta_last.index=list(range(data_muta_last.shape[0]))
         data_muta_last_2=self.make_last_data(data_muta_last,ref_data2)
-        print(data_muta_last_2)
 
 
         print('end step 1')
