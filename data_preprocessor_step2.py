@@ -50,17 +50,11 @@ def act(inputs):
             dict_[gene2].append(gene1)
         return dict_
     dis_name=inputs['dis_name']# get disease name
-    #deg_abs=input('deg 절댓값 여부: ')
 
 
-    #dis_name='BRCA'
-    #deg_abs='f'
-
-    #data_exp=pd.read_csv("/home/bmlserver/park-few-shot/data/bf_preprocess/"+dis_name+"/gene_exp/"+dis_name+"-htseq_fpkm.tsv",sep='\t')#get gene expression raw data
     data_exp=pd.read_csv(inputs['exp_dir'],sep='\t')
     gene_exp=[]
 
-    # delete version in ensembl name
     for i in range(data_exp.shape[0]):
         if '.' in data_exp.iloc[i,0]:
             gene_exp.append(data_exp.iloc[i,0].split('.')[0])
@@ -69,12 +63,9 @@ def act(inputs):
     data_exp['Ensembl_ID']=gene_exp
 
 
-    #%%
     data_exp=data_exp.set_index('Ensembl_ID')
-    #print(data_exp.loc['ENSG00000023902','TCGA-3C-AAAU-01A'])
 
 
-    #%% filtering normal sample
 
     sample_id=list(data_exp.columns)
     new_id=[]
@@ -86,7 +77,6 @@ def act(inputs):
         else:
             new_id.append(sample_id[i])
             
-    #%% get mean of normal samples gene expression
     good_samples=data_exp.loc[:,good_sample_id]
     good_sample_sum=good_samples.sum(axis=1)
     good_sample_sum=good_sample_sum/len(good_sample_id)
@@ -94,7 +84,7 @@ def act(inputs):
     bad_samples=data_exp.loc[:,new_id]
     bad_sample_sum=bad_samples.sum(axis=1)
     bad_sample_sum=bad_sample_sum/len(new_id)
-    #%%
+    
     deg__=bad_sample_sum-good_sample_sum
     if deg__.isna().sum()>=1:
         print('nan value in deg feature')
@@ -121,7 +111,7 @@ def act(inputs):
         idx_+=1
     data.columns=col_l
     data.drop(['gene_symbol'],axis=1,inplace=True)
-    #%%
+    
     muta_gene=list(data.loc[:,'gene'].drop_duplicates())
 
     data.index=list(range(data.shape[0]))
@@ -152,7 +142,6 @@ def act(inputs):
 
     ss=data.groupby('gene')
     total_gene=len(list(set(list(data.loc[:,'gene']))))
-    #%% calculate gene mutation features(fraction) and 
     last_data=[]
     for_col=0
     esang=0
@@ -207,75 +196,16 @@ def act(inputs):
         iter+=1
     last_data=pd.DataFrame(last_data)
     last_data.columns=cols
-    #%% calculate deg
-    """
-    deges=[]
-    for i in range(last_data.shape[0]):
-        deges.append(last_data.loc[i,'gene_exp']-good_sample_sum.loc[last_data.loc[i,'gene']])
-    last_data['deg']=deges
-    """
+
     last_data['deg']=list(deg__.loc[list(last_data.loc[:,'gene']),])
     last_data.dropna(subset=['deg'],inplace=True)
     print(last_data.isna().sum())
-    #%%
-    #%% make tool for label
-
-    """
-    ref_data11='/home/bmlserver/park-few-shot/data/for_ref/prev_gene_to_new.txt'
-
-    ref_data33='/home/bmlserver/park-few-shot/data/for_ref/ensembl_gene.txt'
-    label=pd.read_csv('/home/bmlserver/park-few-shot/data/label/mutation_download_tab.txt',sep='\t')
-    last_label,count,dddaaa=driver_gene_make_label().get_value(label,ref_data11,ref_data33)
-    #%% make labels
-    lbls=[]
-    labels=last_label[dis_name]
-    for i in range(last_data.shape[0]):
-        if last_data.loc[i,'gene'] in labels:
-            lbls.append(1)
-        else:
-            lbls.append(0)
-    last_data['label']=lbls
-    """
-    #%%
-
-    """
-    drop_col=[]
-    last_data_sum=last_data.iloc[:,1:].sum(axis=0)
-    for i in range(last_data_sum.shape[0]):
-        if last_data_sum.iloc[i]==0:
-            drop_col.append(cols[i+1])
-    last_data_drop=last_data.drop(drop_col,axis=1)
-    """     
+    
     last_data_protein=last_data
     last_data_protein.index==list(range(last_data_protein.shape[0]))
 
         
 
-    #%% filtering protein coding gene
-    """
-    protein=pd.read_csv('/home/bmlserver/park-few-shot/data/hsa_id_conv.txt',sep='\t')
-    protein_filter=protein[protein['gene_biotype']=='protein_coding']
-    pro_idx=[]
-    for i in range(last_data_drop.shape[0]):
-        if last_data_drop.loc[i,'gene'] in list(protein_filter.loc[:,'ensembl_gene_id']):
-            pro_idx.append(i)
-    last_data_protein=last_data_drop.loc[pro_idx,:]
-    last_data_protein.index=list(range(last_data_protein.shape[0]))
-    """
-    """
-    degss=[]
-    for i in range(last_data_protein.shape[0]):
-        degss.append(data_exp.loc[last_data_protein.loc[i,'gene'],'deg'])
-    last_data_protein['deg']=degss
-    print(last_data_protein)
-    """
-    #%% calculate pathway feature
-    # -*- coding: utf-8 -*-
-    """
-    Created on Wed Nov 24 12:58:54 2021
-
-    @author: user
-    """
 
 
     dis_pathway={}
@@ -313,7 +243,6 @@ def act(inputs):
     pathways=pathway2.loc[:,'pathway'].drop_duplicates()
     pathways.index=list(range(pathways.shape[0]))
     pathway_dict={}
-    #각 pathway별로 gene 정리
     pathway_iter=1
     for jj in range(pathways.shape[0]):
         if pathways.loc[jj] in dis_pathway_list:
@@ -333,9 +262,6 @@ def act(inputs):
         pathway_iter+=1
 
 
-    #train_data=pd.read_csv('/home/bmlserver/park-few-shot/data/new_version/dis_genet_new_version_'+dis_name+'.csv')
-
-    #train_data.rename(columns={'Ensembl_ID':'gene'},inplace=True)
     add_col=[]
     add_col_dir_=[]
     pathway_iter=1
@@ -374,12 +300,6 @@ def act(inputs):
     last_data_protein['dir_pathway']=add_col_dir_
 
 
-    #%%
-
-
-
-
-    #%%
 
 
 
@@ -392,7 +312,7 @@ def act(inputs):
     inframe=np.array(train_data.loc[:,'inframe_insertion'])+np.array(train_data.loc[:,'conservative_inframe_deletion'])+np.array(train_data.loc[:,'inframe_deletion'])
     lost=np.array(train_data.loc[:,'start_lost'])+np.array(train_data.loc[:,'stop_lost'])
     col=['gene','synonymous_variant','stop_gained','missense_variant','frameshift_variant']
-    #%%
+    
     miss_ratio=[]
     for i in range(train_data.shape[0]):
         if train_data.loc[i,'synonymous_variant']+train_data.loc[i,'missense_variant'] != 0:
@@ -400,7 +320,7 @@ def act(inputs):
         else:
             miss_ratio.append(0)
 
-    #%%
+    
     new_train=train_data.loc[:,col]
     new_train['splice']=splice
     new_train['inframe']=inframe
@@ -411,7 +331,7 @@ def act(inputs):
     new_train['muta_count']=train_data.loc[:,'muta_count']
     new_train['miss_ratio']=miss_ratio
 
-    #%%
+    
     col_l_2=list(new_train.columns)
     idxss=0
     new_train['gene_ens']=new_train['gene']
