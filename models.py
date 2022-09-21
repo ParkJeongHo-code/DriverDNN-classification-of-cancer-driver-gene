@@ -103,7 +103,7 @@ def model_BLCA(input_shape):
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
 
-    x=layers.Dense(2,activation='softmax')(x)
+    x=layers.Dense(2,kernel_initializer=initializer,activation='softmax')(x)
     model=tf.keras.models.Model(inputs=inputs,outputs=x)   
     print(model.summary())
     return model
@@ -127,7 +127,7 @@ def model_GBM(input_shape):
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
 
-    x=layers.Dense(2,activation='softmax')(x)
+    x=layers.Dense(2,kernel_initializer=initializer,activation='softmax')(x)
     model=tf.keras.models.Model(inputs=inputs,outputs=x)   
     print(model.summary())
     return model
@@ -150,7 +150,7 @@ def model_READ(input_shape):
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
 
-    x=layers.Dense(2,activation='softmax')(x)
+    x=layers.Dense(2,kernel_initializer=initializer,activation='softmax')(x)
     model=tf.keras.models.Model(inputs=inputs,outputs=x)   
     print(model.summary())
     return model
@@ -163,18 +163,18 @@ def model_SKCM(input_shape):
     x=layers.Dense(128,kernel_initializer=initializer)(inputs)
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
-    x=layers.Dropout(0.6)(x)
+    x=layers.Dropout(0.5)(x)
 
-    x=layers.Dense(128,kernel_initializer=initializer)(x)
+    x=layers.Dense(512,kernel_initializer=initializer)(x)
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
-    x=layers.Dropout(0.7)(x)
+    x=layers.Dropout(0.5)(x)
 
     x=layers.Dense(64,kernel_initializer=initializer)(x)
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
 
-    x=layers.Dense(2,activation='softmax')(x)
+    x=layers.Dense(2,kernel_initializer=initializer,activation='softmax')(x)
     model=tf.keras.models.Model(inputs=inputs,outputs=x)   
     print(model.summary())
     return model
@@ -198,7 +198,7 @@ def model_KIRP(input_shape):
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
 
-    x=layers.Dense(2,activation='softmax')(x)
+    x=layers.Dense(2,kernel_initializer=initializer,activation='softmax')(x)
     model=tf.keras.models.Model(inputs=inputs,outputs=x)   
     print(model.summary())
     return model
@@ -222,7 +222,7 @@ def model_KIRC(input_shape):#BRCA grid search
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
 
-    x=layers.Dense(2,activation='softmax')(x)
+    x=layers.Dense(2,kernel_initializer=initializer,activation='softmax')(x)
     model=tf.keras.models.Model(inputs=inputs,outputs=x)   
     print(model.summary())
     return model
@@ -237,7 +237,7 @@ def model_LUSC(input_shape):#BRCA grid search
     x=layers.Activation('relu')(x)
     x=layers.Dropout(0.6)(x)
 
-    x=layers.Dense(128,kernel_initializer=initializer)(x)
+    x=layers.Dense(256,kernel_initializer=initializer)(x)
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
     x=layers.Dropout(0.5)(x)
@@ -246,7 +246,7 @@ def model_LUSC(input_shape):#BRCA grid search
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
 
-    x=layers.Dense(2,activation='softmax')(x)
+    x=layers.Dense(2,kernel_initializer=initializer,activation='softmax')(x)
     model=tf.keras.models.Model(inputs=inputs,outputs=x)   
     print(model.summary())
     return model
@@ -261,7 +261,7 @@ def model_LUAD(input_shape):#BRCA grid search
     x=layers.Activation('relu')(x)
     x=layers.Dropout(0.5)(x)
 
-    x=layers.Dense(128,kernel_initializer=initializer)(x)
+    x=layers.Dense(256,kernel_initializer=initializer)(x)
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
     x=layers.Dropout(0.6)(x)
@@ -270,7 +270,7 @@ def model_LUAD(input_shape):#BRCA grid search
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
 
-    x=layers.Dense(2,activation='softmax')(x)
+    x=layers.Dense(2,kernel_initializer=initializer,activation='softmax')(x)
     model=tf.keras.models.Model(inputs=inputs,outputs=x)   
     print(model.summary())
     return model
@@ -280,12 +280,12 @@ def model_SARC(input_shape):#BRCA grid search
     initializer = tf.keras.initializers.HeNormal()
 
 
-    x=layers.Dense(256,kernel_initializer=initializer)(inputs)
+    x=layers.Dense(128,kernel_initializer=initializer)(inputs)
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
     x=layers.Dropout(0.6)(x)
 
-    x=layers.Dense(256,kernel_initializer=initializer)(x)
+    x=layers.Dense(128,kernel_initializer=initializer)(x)
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
     x=layers.Dropout(0.7)(x)
@@ -294,7 +294,7 @@ def model_SARC(input_shape):#BRCA grid search
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
 
-    x=layers.Dense(2,activation='softmax')(x)
+    x=layers.Dense(2,kernel_initializer=initializer,activation='softmax')(x)
     model=tf.keras.models.Model(inputs=inputs,outputs=x)   
     print(model.summary())
     return model
@@ -319,7 +319,7 @@ def model_COAD(input_shape):#BRCA grid search
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
 
-    x=layers.Dense(2,activation='softmax')(x)
+    x=layers.Dense(2,kernel_initializer=initializer,activation='softmax')(x)
     model=tf.keras.models.Model(inputs=inputs,outputs=x)   
     print(model.summary())
     return model
@@ -343,10 +343,11 @@ def model_HNSC(input_shape):#BRCA grid search
     x=layers.BatchNormalization()(x)
     x=layers.Activation('relu')(x)
 
-    x=layers.Dense(2,activation='softmax')(x)
+    x=layers.Dense(2,kernel_initializer=initializer,activation='softmax')(x)
     model=tf.keras.models.Model(inputs=inputs,outputs=x)   
     print(model.summary())
     return model
+
 
 def training(model2,train_x,train_lbls,test_x,test_lbls,epochs,batch_size,early_stop,class_w,save_model_dir,learning_rate):
     gpus = tf.config.experimental.list_physical_devices('GPU')
@@ -417,13 +418,13 @@ def training(model2,train_x,train_lbls,test_x,test_lbls,epochs,batch_size,early_
         print('auc: ',auc_score)
         print('balanced_accuracy_score: ',test_bacc)
         aucss.append(auc_score)
-        if max_auc_score ==0 and train_auc>0.80 and train_acc>0.80 :
+        if max_auc_score ==0 and train_auc>0.80 and train_acc>0.70 :
 
             max_auc_score=auc_score
             no_up=0
             model2.save(save_model_dir)
         else:
-            if auc_score > max_auc_score and train_auc>0.80 and train_acc>0.80:
+            if auc_score > max_auc_score and train_auc>0.80 and train_acc>0.70:
                 max_auc_score = auc_score
                 no_up=0
                 model2.save(save_model_dir)
