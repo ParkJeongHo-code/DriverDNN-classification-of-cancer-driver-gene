@@ -32,6 +32,7 @@ def predict_data(inputs):
         sep_=','
     test_data=pd.read_csv(inputs['data_dir'],sep=sep_)
     test_data['gene_name']=test_data['gene_ens']
+    test_data_sym=list(test_data['gene_symbol'])
     test_gene_list=test_data.loc[:,'gene_name']
     test_labels=[]
     for test_gene in list(test_gene_list):
@@ -49,6 +50,7 @@ def predict_data(inputs):
     for pred in predicts:
         pred_label.append(pred.argmax())
         pos_score.append(pred[1])
+    test_gene_list['gene symbol']=test_data_sym
 
     test_gene_list['pos_score']=pos_score
     test_gene_list['classification']=pred_label
