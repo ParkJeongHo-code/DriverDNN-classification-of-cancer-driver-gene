@@ -184,8 +184,6 @@ class make_input():
 
 
         print('end step 1')
-        print(data_muta_last_2.shape)
-        print('107797')
         if base_dir_out[-1]=='/':
             data_muta_last_2.to_csv(base_dir_out+disease_name+"_exp_muta_concat.csv",index=False)
             step_data_dir=base_dir_out+disease_name+"_exp_muta_concat.csv"
