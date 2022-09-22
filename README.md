@@ -16,7 +16,7 @@ directory of gene expresssion data
 ### 4. muta_data_dir
 directory of gene mutation data(maf file)
 ### example
-    python3 data_preprocessor.py -cancer_name BRCA -out_dir /home/bml_pjh/ -exp_data_dir /mnt/disk1/driver_gene/data/bf_preprocess/BRCA/gene_expBRCA-gene-exp.tsv -muta_data_dir /mnt/disk1/driver_gene/data/bf_preprocess/BRCA/gene_muta/BRCA.varscan.maf
+    python3 data_preprocessor.py -cancer_name BRCA -out_dir /home/bml_pjh/ -exp_data_dir /mnt/disk1/driver_gene/data/bf_preprocess/BRCA/gene_exp/BRCA-gene-exp.tsv -muta_data_dir /mnt/disk1/driver_gene/data/bf_preprocess/BRCA/gene_muta/BRCA.varscan.maf
 
 # training by DriverDNN
 if you want to train your data, you can use DriverDNN_training.py
