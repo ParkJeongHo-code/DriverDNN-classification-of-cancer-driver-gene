@@ -238,7 +238,7 @@ def act(inputs):
 
 
 
-    pathway=pd.read_csv('/mnt/disk1/driver_gene/data/pathway/pathway_ensembl.csv')
+    pathway=pd.read_csv('./for_ref/pathway_ensembl.csv')
     pathway2=pathway.drop('Unnamed: 0',axis=1)
     pathways=pathway2.loc[:,'pathway'].drop_duplicates()
     pathways.index=list(range(pathways.shape[0]))
@@ -350,7 +350,7 @@ def act(inputs):
     print(new_train)
 
 
-    grap_data=pd.read_csv('/mnt/disk1/driver_gene/data/graph_data/humannet/humannetv3_ens_ppi.csv')
+    grap_data=pd.read_csv('./for_ref/humannetv3_ens_ppi.csv')
     grap_data=cut_threshold(grap_data,3.211)
 
 
